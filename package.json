@@ -1,0 +1,40 @@
+{
+  "name": "@ragingtortoise/devops-extended-mcp",
+  "version": "0.1.0",
+  "description": "Azure DevOps Extended MCP Server - Extended work item management with PAT authentication",
+  "main": "index.js",
+  "bin": {
+    "devops-extended-mcp": "./bin/devops-extended-mcp.js"
+  },
+  "scripts": {
+    "postinstall": "pip install -e .",
+    "test": "python integration_tests.py"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "azure-devops",
+    "work-items",
+    "ai",
+    "claude",
+    "copilot",
+    "mcp-server"
+  ],
+  "author": "RagingTortoise",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ragingtortoise/azure_devops_mcp_extended.git"
+  },
+  "homepage": "https://github.com/ragingtortoise/azure_devops_mcp_extended#readme",
+  "bugs": {
+    "url": "https://github.com/ragingtortoise/azure_devops_mcp_extended/issues"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "python": ">=3.9"
+  },
+  "peerDependencies": {
+    "python": ">=3.9"
+  }
+}
