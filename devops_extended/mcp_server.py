@@ -27,11 +27,7 @@ SELECTED_DOMAINS: set[str] | None = None
 TOOL_DOMAINS = {
     # Creation domain - tools that create new work items
     "creation": {
-        "create_pbi",
-        "create_bug",
-        "create_task",
-        "create_feature",
-        "create_epic",
+        "create_work_item",
     },
     # Updates domain - tools that modify existing work items
     "updates": {
@@ -56,17 +52,11 @@ TOOL_DOMAINS = {
     },
     # Composite domains for convenience
     "core": {  # Essential operations (create + get)
-        "create_pbi",
-        "create_bug",
-        "create_task",
+        "create_work_item",
         "get_work_item",
     },
     "work-items": {  # All work item operations (creation + updates + queries)
-        "create_pbi",
-        "create_bug",
-        "create_task",
-        "create_feature",
-        "create_epic",
+        "create_work_item",
         "update_work_item_title",
         "assign_work_item",
         "add_comment",
@@ -91,109 +81,42 @@ async def list_tools() -> list[Tool]:
     """List all available Azure DevOps tools (with optional domain filtering)."""
     all_tools = [
         Tool(
-            name="create_pbi",
-            description="Create a Product Backlog Item (or User Story/Issue depending on process template). Auto-detects correct work item type.",
+            name="create_work_item",
+            description="Create a work item of any type (Bug, User Story, Task, Feature, Epic, or custom types). Supports all common fields plus custom fields.",
             inputSchema={
                 "type": "object",
                 "properties": {
+                    "work_item_type": {
+                        "type": "string",
+                        "description": "Work item type name (e.g., 'Bug', 'User Story', 'Task', 'Feature', 'Epic', or custom type). Use get_work_item_types to discover available types."
+                    },
                     "title": {"type": "string", "description": "Work item title"},
                     "description": {"type": "string", "description": "Work item description (HTML supported)"},
-                    "priority": {"type": "integer", "description": "Priority (1-4, where 1 is highest)", "minimum": 1, "maximum": 4},
-                    "effort": {"type": "integer", "description": "Story points/effort estimate"},
-                    "value_area": {"type": "string", "description": "Value area (Business/Architectural)"},
-                    "tags": {"type": "string", "description": "Comma-separated tags"},
                     "assigned_to": {"type": "string", "description": "Assignee email or display name"},
                     "area_path": {"type": "string", "description": "Area path (e.g., 'ProjectName\\Area')"},
                     "iteration_path": {"type": "string", "description": "Iteration path (e.g., 'ProjectName\\Sprint 1')"},
-                    "parent_id": {"type": "integer", "description": "Parent work item ID (e.g., Epic or Feature ID)"},
-                    "team": {"type": "string", "description": "Team key (e.g., 'frontend', 'backend', 'mobile') to assign to team's board"},
-                },
-                "required": ["title"],
-            },
-        ),
-        Tool(
-            name="create_bug",
-            description="Create a Bug work item.",
-            inputSchema={
-                "type": "object",
-                "properties": {
-                    "title": {"type": "string", "description": "Bug title"},
-                    "repro_steps": {"type": "string", "description": "Steps to reproduce"},
-                    "system_info": {"type": "string", "description": "System information"},
-                    "severity": {"type": "string", "description": "Severity (1-4, where 1 is critical)"},
-                    "priority": {"type": "integer", "description": "Priority (1-4)", "minimum": 1, "maximum": 4},
+                    "priority": {"type": "integer", "description": "Priority (1-4, where 1 is highest)", "minimum": 1, "maximum": 4},
                     "tags": {"type": "string", "description": "Comma-separated tags"},
-                    "assigned_to": {"type": "string", "description": "Assignee email or display name"},
-                    "area_path": {"type": "string", "description": "Area path"},
-                    "iteration_path": {"type": "string", "description": "Iteration path"},
-                    "parent_id": {"type": "integer", "description": "Parent work item ID"},
-                    "team": {"type": "string", "description": "Team key to assign to team's board"},
-                },
-                "required": ["title"],
-            },
-        ),
-        Tool(
-            name="create_task",
-            description="Create a Task work item.",
-            inputSchema={
-                "type": "object",
-                "properties": {
-                    "title": {"type": "string", "description": "Task title"},
-                    "description": {"type": "string", "description": "Task description"},
-                    "activity": {"type": "string", "description": "Activity type (Development, Testing, etc.)"},
-                    "remaining_work": {"type": "number", "description": "Remaining work in hours"},
-                    "original_estimate": {"type": "number", "description": "Original estimate in hours"},
-                    "tags": {"type": "string", "description": "Comma-separated tags"},
-                    "assigned_to": {"type": "string", "description": "Assignee email or display name"},
-                    "area_path": {"type": "string", "description": "Area path"},
-                    "iteration_path": {"type": "string", "description": "Iteration path"},
-                    "parent_id": {"type": "integer", "description": "Parent work item ID (e.g., PBI or Feature)"},
-                    "team": {"type": "string", "description": "Team key to assign to team's board"},
-                },
-                "required": ["title"],
-            },
-        ),
-        Tool(
-            name="create_feature",
-            description="Create a Feature work item.",
-            inputSchema={
-                "type": "object",
-                "properties": {
-                    "title": {"type": "string", "description": "Feature title"},
-                    "description": {"type": "string", "description": "Feature description"},
-                    "priority": {"type": "integer", "description": "Priority (1-4)", "minimum": 1, "maximum": 4},
+                    "parent_id": {"type": "integer", "description": "Parent work item ID for hierarchical linking"},
+                    "state": {"type": "string", "description": "Initial state (e.g., 'New', 'Active', 'Ideation')"},
+                    "effort": {"type": "integer", "description": "Story points/effort estimate (for backlog items)"},
+                    "story_points": {"type": "integer", "description": "Story points (alternative to effort)"},
                     "value_area": {"type": "string", "description": "Value area (Business/Architectural)"},
-                    "target_date": {"type": "string", "description": "Target date (YYYY-MM-DD)"},
-                    "tags": {"type": "string", "description": "Comma-separated tags"},
-                    "assigned_to": {"type": "string", "description": "Assignee email or display name"},
-                    "area_path": {"type": "string", "description": "Area path"},
-                    "iteration_path": {"type": "string", "description": "Iteration path"},
-                    "parent_id": {"type": "integer", "description": "Parent work item ID (e.g., Epic)"},
+                    "repro_steps": {"type": "string", "description": "Steps to reproduce (for bugs)"},
+                    "system_info": {"type": "string", "description": "System information (for bugs)"},
+                    "severity": {"type": "string", "description": "Bug severity (1-4, where 1 is critical)"},
+                    "activity": {"type": "string", "description": "Activity type (for tasks, e.g., 'Development', 'Testing')"},
+                    "remaining_work": {"type": "number", "description": "Remaining work in hours (for tasks)"},
+                    "original_estimate": {"type": "number", "description": "Original estimate in hours (for tasks)"},
+                    "target_date": {"type": "string", "description": "Target date in ISO format (YYYY-MM-DD)"},
+                    "start_date": {"type": "string", "description": "Start date in ISO format (YYYY-MM-DD)"},
                     "team": {"type": "string", "description": "Team key to assign to team's board"},
-                    "ideation": {"type": "boolean", "description": "Create in 'Ideation' state (for quick ideas/notes)"},
+                    "custom_fields": {
+                        "type": "object",
+                        "description": "Custom field reference names to values (e.g., {'Custom.FieldName': 'value'}). Use get_work_item_fields to discover available custom fields."
+                    },
                 },
-                "required": ["title"],
-            },
-        ),
-        Tool(
-            name="create_epic",
-            description="Create an Epic work item.",
-            inputSchema={
-                "type": "object",
-                "properties": {
-                    "title": {"type": "string", "description": "Epic title"},
-                    "description": {"type": "string", "description": "Epic description"},
-                    "priority": {"type": "integer", "description": "Priority (1-4)", "minimum": 1, "maximum": 4},
-                    "value_area": {"type": "string", "description": "Value area (Business/Architectural)"},
-                    "start_date": {"type": "string", "description": "Start date (YYYY-MM-DD)"},
-                    "target_date": {"type": "string", "description": "Target date (YYYY-MM-DD)"},
-                    "tags": {"type": "string", "description": "Comma-separated tags"},
-                    "assigned_to": {"type": "string", "description": "Assignee email or display name"},
-                    "area_path": {"type": "string", "description": "Area path"},
-                    "iteration_path": {"type": "string", "description": "Iteration path"},
-                    "team": {"type": "string", "description": "Team key to assign to team's board"},
-                },
-                "required": ["title"],
+                "required": ["work_item_type", "title"],
             },
         ),
         Tool(
@@ -358,16 +281,8 @@ async def list_tools() -> list[Tool]:
 async def call_tool(name: str, arguments: Any) -> list[TextContent]:
     """Handle tool calls."""
     try:
-        if name == "create_pbi":
-            result = work_items.create_pbi(**arguments)
-        elif name == "create_bug":
-            result = work_items.create_bug(**arguments)
-        elif name == "create_task":
-            result = work_items.create_task(**arguments)
-        elif name == "create_feature":
-            result = work_items.create_feature(**arguments)
-        elif name == "create_epic":
-            result = work_items.create_epic(**arguments)
+        if name == "create_work_item":
+            result = work_items.create_work_item(**arguments)
         elif name == "get_work_item":
             result = work_items.get_work_item(arguments["work_item_id"])
         elif name == "update_work_item_title":

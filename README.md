@@ -223,20 +223,18 @@ python -m devops_extended state 123 active
 ## 🐍 Programmatic Usage
 
 ```python
-from devops_extended import (
-    create_pbi,
-    create_bug,
-    update_work_item,
-    transition_to_active,
-    add_comment,
-)
+from devops_extended import create_work_item, update_work_item, transition_state, add_comment
 
-pbi = create_pbi("Implement new feature", "Detailed description", priority=1, effort=8, tags="feature,priority")
-bug = create_bug("Fix issue", "Steps...", severity="1", priority=1)
+# Create any type of work item
+bug = create_work_item("Bug", "Login fails", severity="1", priority=1, repro_steps="Click login")
+story = create_work_item("User Story", "Add search", effort=5, priority=1, value_area="Business")
+task = create_work_item("Task", "Write tests", activity="Testing", remaining_work=4)
+custom = create_work_item("Custom Type", "My item", custom_fields={"Custom.Field": "value"})
 
-transition_to_active(pbi['id'])
-add_comment(pbi['id'], "Started work")
-update_work_item(pbi['id'], {"System.Title": "Updated title"})
+# Update and transition
+transition_state(bug['id'], "Active")
+add_comment(bug['id'], "Started investigation")
+update_work_item(bug['id'], {"System.Title": "Updated title"})
 ```
 
 ---

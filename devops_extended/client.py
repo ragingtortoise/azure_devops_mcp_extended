@@ -79,7 +79,7 @@ class AzureDevOpsClient:
         Raises:
             requests.HTTPError: If the request fails
         """
-        url = self._get_url(f"wit/workitems/${quote(work_item_type)}")
+        url = self._get_url(f"wit/workitems/$" + quote(work_item_type))
         
         # Build patch document
         operations = []
@@ -91,7 +91,15 @@ class AzureDevOpsClient:
             })
         
         response = self.session.post(url, json=operations)
-        response.raise_for_status()
+        try:
+            response.raise_for_status()
+        except requests.HTTPError as e:
+            # Add response body to error message for debugging
+            error_detail = response.text if response.text else "No error details"
+            raise requests.HTTPError(
+                f"{e}. Response: {error_detail}", 
+                response=response
+            )
         
         return response.json()
     

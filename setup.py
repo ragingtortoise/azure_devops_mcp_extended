@@ -4,8 +4,8 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setup(
-    name="devops-extended",
-    version="0.1.0",
+    name="devops-extended-mcp",
+    version="0.2.0",
     author="RagingTortoise",
     description="Azure DevOps REST API interface for work item management advanced scenarios",
     long_description=long_description,

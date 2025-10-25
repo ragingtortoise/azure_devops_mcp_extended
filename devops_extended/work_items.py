@@ -9,6 +9,165 @@ from .config import Config
 from .type_resolver import get_resolver
 
 
+def create_work_item(
+    work_item_type: str,
+    title: str,
+    description: Optional[str] = None,
+    assigned_to: Optional[str] = None,
+    area_path: Optional[str] = None,
+    iteration_path: Optional[str] = None,
+    priority: Optional[int] = None,
+    tags: Optional[str] = None,
+    parent_id: Optional[int] = None,
+    state: Optional[str] = None,
+    # Common backlog item fields
+    effort: Optional[int] = None,
+    story_points: Optional[int] = None,
+    value_area: Optional[str] = None,
+    # Bug-specific fields
+    repro_steps: Optional[str] = None,
+    system_info: Optional[str] = None,
+    severity: Optional[str] = None,
+    # Task-specific fields
+    activity: Optional[str] = None,
+    remaining_work: Optional[float] = None,
+    original_estimate: Optional[float] = None,
+    # Feature/Epic fields
+    target_date: Optional[str] = None,
+    start_date: Optional[str] = None,
+    # Team assignment
+    team: Optional[str] = None,
+    # Additional custom fields
+    custom_fields: Optional[Dict[str, Any]] = None,
+    config: Optional[Config] = None,
+) -> Dict[str, Any]:
+    """
+    Create a work item of any type.
+    
+    This is a unified creation function that works with any work item type
+    (Bug, User Story, Task, Feature, Epic, or custom types).
+    
+    Args:
+        work_item_type: Work item type name (e.g., "Bug", "User Story", "Task", "MyCustomType")
+        title: Work item title
+        description: Detailed description (HTML supported)
+        assigned_to: Email or display name of assignee
+        area_path: Area path (e.g., "ProjectName\\Area")
+        iteration_path: Iteration path (e.g., "ProjectName\\Sprint 1")
+        priority: Priority (1-4, where 1 is highest)
+        tags: Comma-separated tags
+        parent_id: Parent work item ID for hierarchical linking
+        state: Initial state (e.g., "New", "Active", "Ideation")
+        effort: Story points/effort estimate (for backlog items)
+        story_points: Story points (alternative to effort)
+        value_area: Business or Architectural
+        repro_steps: Steps to reproduce (for bugs)
+        system_info: System information (for bugs)
+        severity: Bug severity (1-4, where 1 is critical)
+        activity: Activity type (for tasks, e.g., "Development", "Testing")
+        remaining_work: Remaining work in hours (for tasks)
+        original_estimate: Original estimate in hours (for tasks)
+        target_date: Target date in ISO format (YYYY-MM-DD)
+        start_date: Start date in ISO format (YYYY-MM-DD)
+        team: Team key to assign to team's board
+        custom_fields: Dictionary of custom field reference names to values (e.g., {"Custom.FieldName": "value"})
+        config: Optional Config instance
+        
+    Returns:
+        Created work item data including ID and URL
+        
+    Example:
+        # Create a bug
+        create_work_item("Bug", "Login fails", severity="1", repro_steps="Click login button")
+        
+        # Create a user story
+        create_work_item("User Story", "Add search", effort=5, priority=1)
+        
+        # Create a custom type
+        create_work_item("Custom Requirement", "My requirement", custom_fields={"Custom.Field": "value"})
+    """
+    client = AzureDevOpsClient(config)
+    
+    fields: Dict[str, Union[str, int, float]] = {
+        "System.Title": title,
+    }
+    
+    # Core fields
+    if description:
+        fields["System.Description"] = _format_html_text(description)
+    if assigned_to:
+        fields["System.AssignedTo"] = assigned_to
+    if priority:
+        fields["Microsoft.VSTS.Common.Priority"] = priority
+    if tags:
+        fields["System.Tags"] = tags
+    if state:
+        fields["System.State"] = state
+    
+    # Area path with team support
+    if area_path:
+        fields["System.AreaPath"] = area_path
+    elif team and client.config.project:
+        fields["System.AreaPath"] = client.config.project
+    
+    if iteration_path:
+        fields["System.IterationPath"] = iteration_path
+    
+    # Backlog item fields
+    if effort:
+        fields["Microsoft.VSTS.Scheduling.Effort"] = effort
+    if story_points:
+        fields["Microsoft.VSTS.Scheduling.StoryPoints"] = story_points
+    if value_area:
+        fields["Microsoft.VSTS.Common.ValueArea"] = value_area
+    
+    # Bug fields
+    if repro_steps:
+        fields["Microsoft.VSTS.TCM.ReproSteps"] = _format_html_text(repro_steps)
+    if system_info:
+        fields["Microsoft.VSTS.TCM.SystemInfo"] = _format_html_text(system_info)
+    if severity:
+        # Convert severity to Azure DevOps format if it's a number
+        severity_map = {
+            "1": "1 - Critical",
+            "2": "2 - High",
+            "3": "3 - Medium",
+            "4": "4 - Low",
+            1: "1 - Critical",
+            2: "2 - High",
+            3: "3 - Medium",
+            4: "4 - Low"
+        }
+        fields["Microsoft.VSTS.Common.Severity"] = severity_map.get(severity, severity)
+    
+    # Task fields
+    if activity:
+        fields["Microsoft.VSTS.Common.Activity"] = activity
+    if remaining_work is not None:
+        fields["Microsoft.VSTS.Scheduling.RemainingWork"] = remaining_work
+    if original_estimate is not None:
+        fields["Microsoft.VSTS.Scheduling.OriginalEstimate"] = original_estimate
+    
+    # Feature/Epic fields
+    if target_date:
+        fields["Microsoft.VSTS.Scheduling.TargetDate"] = target_date
+    if start_date:
+        fields["Microsoft.VSTS.Scheduling.StartDate"] = start_date
+    
+    # Custom fields
+    if custom_fields:
+        fields.update(custom_fields)
+    
+    # Create the work item
+    result = client.create_work_item(work_item_type, fields)
+    
+    # Add parent link if specified
+    if parent_id:
+        client.add_parent_link(result["id"], parent_id)
+    
+    return result
+
+
 def _format_html_text(text: str) -> str:
     """
     Convert plain text with newlines to HTML format.

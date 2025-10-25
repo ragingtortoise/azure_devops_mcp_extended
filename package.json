@@ -1,6 +1,6 @@
 {
   "name": "@ragingtortoise/devops-extended-mcp",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Azure DevOps Extended MCP Server - Extended work item management with PAT authentication",
   "main": "index.js",
   "bin": {

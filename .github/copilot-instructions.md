@@ -11,33 +11,29 @@ Always check if the Azure DevOps MCP server has a relevant tool before suggestin
 The server supports **selective tool loading** via domain filtering to optimize performance and respect client tool limits.
 
 **Available Domains:**
-- `creation` - 5 tools for creating work items (create_pbi, create_bug, create_task, create_feature, create_epic)
+- `creation` - 1 tool for creating work items (create_work_item)
 - `updates` - 5 tools for modifying work items (update_work_item_title, assign_work_item, add_comment, transition_state, add_parent_link)
 - `queries` - 2 tools for retrieving work items (get_work_item, delete_work_item)
 - `metadata` - 5 tools for discovering schema/types/states (get_work_item_types, get_available_states, get_work_item_type_schema, get_work_item_fields, get_work_item_available_states)
-- `core` - 4 essential tools (create_pbi, create_bug, create_task, get_work_item)
-- `work-items` - 12 tools for all work item operations (creation + updates + queries)
+- `core` - 2 essential tools (create_work_item, get_work_item)
+- `work-items` - 8 tools for all work item operations (creation + updates + queries)
 
 **Configuration Examples:**
 ```jsonc
-// Load only core tools (4 tools)
+// Load only core tools (2 tools)
 "args": ["-m", "devops_extended.mcp", "-d", "core"]
 
-// Load multiple domains (10 tools)
+// Load multiple domains (6 tools)
 "args": ["-m", "devops_extended.mcp", "-d", "creation", "metadata"]
 
-// Load all tools (no filtering, 17 tools)
+// Load all tools (no filtering, 13 tools)
 "args": ["-m", "devops_extended.mcp"]
 ```
 
 See `examples/mcp-with-domain-filtering.json` for complete examples.
 
 ### Work Item Creation
-- `create_pbi` - Create Product Backlog Items/User Stories
-- `create_bug` - Create Bugs with priority and severity
-- `create_task` - Create Tasks with effort estimates
-- `create_feature` - Create Features
-- `create_epic` - Create Epics
+- `create_work_item` - Create any type of work item (Bug, User Story, Task, Feature, Epic, or custom types)
 
 ### Work Item Operations
 - `get_work_item` - Retrieve work item details by ID
@@ -92,6 +88,7 @@ Repeated queries are fast and don't hit Azure DevOps API unnecessarily.
 - "What work item types are available?"
 - "Show me available states for User Story"
 - "Create a bug for the login timeout issue with priority 1"
+- "Create a custom work item of type 'Requirement' with title 'Security review'"
 - "Get work item 123"
 - "What states can work item 456 transition to?"
 - "Mark work item 789 as Resolved"
