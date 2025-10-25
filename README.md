@@ -23,7 +23,7 @@ Integrate it with **AI assistants** like Claude, Cline, and GitHub Copilot via M
 
 ## 🎯 Why This Exists
 
-This repository originated as an individual tool designed to fill the functional gaps in the official Azure DevOps MCP Server. Over time, it evolved into its current state, incorporating broader capabilities and improved maintainability.
+This repository originated as an individual tool designed to fill the functional gaps in the [official Azure DevOps MCP Server](https://github.com/microsoft/azure-devops-mcp). Over time, it evolved into its current state, incorporating broader capabilities and improved maintainability.
 
 **Azure DevOps Extended** fills those gaps with:
 - ✅ PAT Authentication support
