@@ -1,6 +1,6 @@
 {
   "name": "@ragingtortoise/devops-extended-mcp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Azure DevOps Extended MCP Server - Extended work item management with PAT authentication",
   "main": "index.js",
   "bin": {
@@ -31,10 +31,6 @@
     "url": "https://github.com/ragingtortoise/azure_devops_mcp_extended/issues"
   },
   "engines": {
-    "node": ">=16.0.0",
-    "python": ">=3.9"
-  },
-  "peerDependencies": {
-    "python": ">=3.9"
+    "node": ">=16.0.0"
   }
 }
