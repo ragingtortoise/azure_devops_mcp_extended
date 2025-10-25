@@ -1,0 +1,10 @@
+{
+  "servers": {
+    "devops-extended": {
+      "type": "stdio",
+      "command": "python",
+      "args": ["-m", "devops_extended.mcp"]
+    }
+  }
+}
+
