@@ -29,7 +29,7 @@ The official Azure DevOps MCP server doesn't support PAT authentication. This on
 
 ```bash
 # Clone the repository
-git clone <repository-url>
+git clone https://github.com/ragingtortoise/azure_devops_mcp_extended
 cd azure_devops_mcp_extended
 
 # Install dependencies
@@ -141,7 +141,7 @@ Add to `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS)
 }
 ```
 
-### Available MCP Tools (17 total)
+### Currently Available MCP Tools (17 total) - Extending Fast
 
 Once configured, AI assistants can:
 
