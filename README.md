@@ -262,6 +262,8 @@ When asked to manage Azure DevOps work items:
 - [ ] AI-assisted work item ideation  
 - [ ] Optional REST API layer  
 
+See [docs/ROADMAP.md](docs/ROADMAP.md) for detailed roadmap and version history.
+
 ---
 
 ## ⚙️ Development
@@ -282,15 +284,6 @@ mypy devops_extended
 
 ---
 
-## 🧑‍💻 Author
-
-**RagingTortoise 🐢**  
-Creator and maintainer of **Azure DevOps Extended**
-
-> Bringing full-featured Azure DevOps control to your terminal, scripts, and AI assistants — built for real use, ready for production.
-
----
 
 ## 🪪 License
-
-MIT License © RagingTortoise
+MIT License © RagingTortoise (Selim S. Balci)
