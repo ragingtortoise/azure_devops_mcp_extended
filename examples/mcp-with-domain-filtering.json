@@ -9,7 +9,7 @@
         "-d",
         "core"
       ],
-      "_comment": "Load only core tools (create_pbi, create_bug, create_task, get_work_item) - 4 tools"
+      "_comment": "Load only core tools (create_work_item, get_work_item) - 2 tools"
     },
     "devops-extended-creation": {
       "type": "stdio",
@@ -20,7 +20,7 @@
         "-d",
         "creation"
       ],
-      "_comment": "Load only work item creation tools (create_pbi, create_bug, create_task, create_feature, create_epic) - 5 tools"
+      "_comment": "Load only work item creation tool (create_work_item) - 1 tool"
     },
     "devops-extended-work-items": {
       "type": "stdio",
@@ -31,7 +31,7 @@
         "-d",
         "work-items"
       ],
-      "_comment": "Load all work item operations (creation + updates + queries) - 12 tools"
+      "_comment": "Load all work item operations (creation + updates + queries) - 8 tools"
     },
     "devops-extended-creation-and-metadata": {
       "type": "stdio",
@@ -43,7 +43,7 @@
         "creation",
         "metadata"
       ],
-      "_comment": "Load multiple domains (creation + metadata discovery) - 10 tools"
+      "_comment": "Load multiple domains (creation + metadata discovery) - 6 tools"
     },
     "devops-extended-all": {
       "type": "stdio",
@@ -52,16 +52,16 @@
         "-m",
         "devops_extended.mcp"
       ],
-      "_comment": "No -d flag = all domains enabled (all 17 tools)"
+      "_comment": "No -d flag = all domains enabled (all 13 tools)"
     }
   },
   "_domain_reference": {
-    "creation": "5 tools - create_pbi, create_bug, create_task, create_feature, create_epic",
+    "creation": "1 tool - create_work_item (supports all work item types)",
     "updates": "5 tools - update_work_item_title, assign_work_item, add_comment, transition_state, add_parent_link",
     "queries": "2 tools - get_work_item, delete_work_item",
     "metadata": "5 tools - get_work_item_types, get_available_states, get_work_item_type_schema, get_work_item_fields, get_work_item_available_states",
-    "core": "4 tools - Essential operations (create_pbi, create_bug, create_task, get_work_item)",
-    "work-items": "12 tools - All work item operations (creation + updates + queries)"
+    "core": "2 tools - Essential operations (create_work_item, get_work_item)",
+    "work-items": "8 tools - All work item operations (creation + updates + queries)"
   }
 }
 

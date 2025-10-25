@@ -3,23 +3,24 @@
 This document outlines the planned development phases for Azure DevOps Extended, an MCP server and CLI tool for Azure DevOps work item management.
 
 **Last Updated:** October 25, 2025  
-**Current Version:** 0.1.0  
+**Current Version:** 0.2.0  
 **Status:** Public Release
 
 ---
 
 ## Phase 1: Foundation & Stability ✅ (COMPLETED)
 
-**Status:** Released as v0.1.0
+**Status:** Released as v0.2.0
 
 ### Completed Features
-- [x] Core work item creation (PBI, Bug, Task, Feature, Epic)
-- [x] Dynamic work item type detection (Agile/Scrum/CMMI/Basic)
+- [x] Core work item creation (unified create_work_item tool)
+- [x] Support for all work item types including custom types
+- [x] Dynamic work item type detection (Agile/Scrum/CMMI/Basic/Custom)
 - [x] Work item updates (title, description, fields)
 - [x] State transitions with validation
 - [x] Comment system
 - [x] Parent-child linking (hierarchical relationships)
-- [x] MCP server implementation with 17 tools
+- [x] MCP server implementation with 13 tools
 - [x] Domain filtering for selective tool loading
 - [x] PAT authentication
 - [x] CLI interface with console script
@@ -28,6 +29,13 @@ This document outlines the planned development phases for Azure DevOps Extended,
 - [x] Comprehensive documentation (README, QUICKSTART)
 - [x] Example configurations for VS Code and Claude Desktop
 - [x] Integration tests and validation scripts
+
+### Recent Changes (v0.2.0)
+- [x] Refactored to unified create_work_item tool (from 5 separate tools)
+- [x] Added custom fields support
+- [x] Improved error handling with detailed Azure DevOps responses
+- [x] Fixed URL encoding bugs
+- [x] Reduced total tool count from 17 → 13 tools
 
 ---
 
