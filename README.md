@@ -1,6 +1,6 @@
-# Azure DevOps Extended �
+# Azure DevOps Extended
 
-A Python package and **Model Context Protocol (MCP) server** for managing Azure DevOps work items. Use it as a CLI tool, Python API, or integrate with AI assistants like Claude, Cline, and GitHub Copilot via MCP.
+A Python package and **Model Context Protocol (MCP) server** for managing Azure DevOps work items (for now). Use it as a CLI tool, Python API, or integrate with AI assistants like Claude, Cline, and GitHub Copilot via MCP.
 
 ## 🎯 Why This Exists
 
