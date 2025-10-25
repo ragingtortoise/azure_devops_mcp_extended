@@ -1,0 +1,10 @@
+{
+  "servers": {
+    "devops-extended": {
+      "type": "stdio",
+      "command": "C:\\Users\\YourUsername\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "args": ["-m", "devops_extended.mcp"]
+    }
+  }
+}
+

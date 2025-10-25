@@ -1,0 +1,67 @@
+{
+  "servers": {
+    "devops-extended-core": {
+      "type": "stdio",
+      "command": "python",
+      "args": [
+        "-m",
+        "devops_extended.mcp",
+        "-d",
+        "core"
+      ],
+      "_comment": "Load only core tools (create_pbi, create_bug, create_task, get_work_item) - 4 tools"
+    },
+    "devops-extended-creation": {
+      "type": "stdio",
+      "command": "python",
+      "args": [
+        "-m",
+        "devops_extended.mcp",
+        "-d",
+        "creation"
+      ],
+      "_comment": "Load only work item creation tools (create_pbi, create_bug, create_task, create_feature, create_epic) - 5 tools"
+    },
+    "devops-extended-work-items": {
+      "type": "stdio",
+      "command": "python",
+      "args": [
+        "-m",
+        "devops_extended.mcp",
+        "-d",
+        "work-items"
+      ],
+      "_comment": "Load all work item operations (creation + updates + queries) - 12 tools"
+    },
+    "devops-extended-creation-and-metadata": {
+      "type": "stdio",
+      "command": "python",
+      "args": [
+        "-m",
+        "devops_extended.mcp",
+        "-d",
+        "creation",
+        "metadata"
+      ],
+      "_comment": "Load multiple domains (creation + metadata discovery) - 10 tools"
+    },
+    "devops-extended-all": {
+      "type": "stdio",
+      "command": "python",
+      "args": [
+        "-m",
+        "devops_extended.mcp"
+      ],
+      "_comment": "No -d flag = all domains enabled (all 17 tools)"
+    }
+  },
+  "_domain_reference": {
+    "creation": "5 tools - create_pbi, create_bug, create_task, create_feature, create_epic",
+    "updates": "5 tools - update_work_item_title, assign_work_item, add_comment, transition_state, add_parent_link",
+    "queries": "2 tools - get_work_item, delete_work_item",
+    "metadata": "5 tools - get_work_item_types, get_available_states, get_work_item_type_schema, get_work_item_fields, get_work_item_available_states",
+    "core": "4 tools - Essential operations (create_pbi, create_bug, create_task, get_work_item)",
+    "work-items": "12 tools - All work item operations (creation + updates + queries)"
+  }
+}
+
