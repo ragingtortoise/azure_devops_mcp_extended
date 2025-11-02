@@ -44,7 +44,8 @@ This repository originated as an individual tool designed to fill the functional
 - Real-time state tracking for AI agents
 
 ### 🧠 MCP Features
-- 17 available MCP tools (creation, updates, queries, metadata), many more on the way
+- 13 available MCP tools (creation, updates, queries, metadata), many more on the way
+- Generic field update tool for maximum flexibility
 - Domain filtering (`-d` flag) — load only the tools you need
 - Dynamic metadata and schema discovery
 - Process template agnostic
@@ -145,12 +146,16 @@ Add to:
 
 | Domain | Tools | Description |
 |---------|-------|-------------|
-| `creation` | 5 | Create PBIs, Bugs, Tasks, Features, Epics |
-| `updates` | 5 | Update titles, assign, add comments, transition, link |
+| `creation` | 1 | Create work items (unified tool for all types) |
+| `updates` | 6 | Update any fields, titles, assign, add comments, transition, link |
 | `queries` | 2 | Get or delete work items |
 | `metadata` | 5 | Work item types, fields, states, schemas |
-| `core` | 4 | Minimal loadout for fast startup |
-| `work-items` | 12 | All creation + update + query tools |
+| `core` | 2 | Minimal loadout for fast startup (create + get) |
+| `work-items` | 9 | All creation + update + query tools |
+
+### New in v0.3.0 ✨
+- **Generic `update_work_item` tool**: Update any work item field using field reference names (e.g., `System.AreaPath`, `System.IterationPath`)
+- **Area path support in work item creation**: Specify area paths directly when creating work items
 
 Example domain filtering:
 ```json

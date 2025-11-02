@@ -31,6 +31,7 @@ TOOL_DOMAINS = {
     },
     # Updates domain - tools that modify existing work items
     "updates": {
+        "update_work_item",
         "update_work_item_title",
         "assign_work_item",
         "add_comment",
@@ -57,6 +58,7 @@ TOOL_DOMAINS = {
     },
     "work-items": {  # All work item operations (creation + updates + queries)
         "create_work_item",
+        "update_work_item",
         "update_work_item_title",
         "assign_work_item",
         "add_comment",
@@ -128,6 +130,21 @@ async def list_tools() -> list[Tool]:
                     "work_item_id": {"type": "integer", "description": "Work item ID"},
                 },
                 "required": ["work_item_id"],
+            },
+        ),
+        Tool(
+            name="update_work_item",
+            description="Update any field(s) of a work item. Use this for flexible updates beyond title/assignee/state. Accepts field reference names (e.g., 'System.AreaPath', 'System.IterationPath', 'Microsoft.VSTS.Common.Priority').",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "work_item_id": {"type": "integer", "description": "Work item ID"},
+                    "fields": {
+                        "type": "object",
+                        "description": "Dictionary of field updates with field reference names as keys (e.g., {'System.AreaPath': 'MyProject\\MyArea', 'Microsoft.VSTS.Common.Priority': 1}). Use get_work_item_fields to discover available fields."
+                    },
+                },
+                "required": ["work_item_id", "fields"],
             },
         ),
         Tool(
@@ -285,6 +302,8 @@ async def call_tool(name: str, arguments: Any) -> list[TextContent]:
             result = work_items.create_work_item(**arguments)
         elif name == "get_work_item":
             result = work_items.get_work_item(arguments["work_item_id"])
+        elif name == "update_work_item":
+            result = updates.update_work_item(arguments["work_item_id"], arguments["fields"])
         elif name == "update_work_item_title":
             result = updates.update_title(arguments["work_item_id"], arguments["title"])
         elif name == "assign_work_item":

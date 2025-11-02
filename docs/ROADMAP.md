@@ -43,6 +43,10 @@ This document outlines the planned development phases for Azure DevOps Extended,
 
 **Focus:** Improve work item discovery and batch operations
 
+### Completed Features (v0.3.0)
+- [x] **Generic update_work_item tool** (#535) - Update any work item field flexibly
+- [x] **Area path support in creation** (#534) - Specify area paths when creating work items
+
 ### Planned Features
 - [ ] **Query Builder**
   - [ ] WIQL (Work Item Query Language) support
