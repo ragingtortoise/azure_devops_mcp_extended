@@ -131,24 +131,18 @@ This MCP server provides advantages over other Azure DevOps integrations:
 ## Version Planning & Work Item Management
 
 ### Current Release: v0.3.0
-Features in development (see work items #637, #638, #639):
+Features in development:
 - **Bulk operations** for creating, reading, and updating multiple work items
+- **Tag management** for organizing and categorizing work items
 - Performance optimization over Microsoft's official MCP plugin
 - All work items tagged with `v0.3.0` for release tracking
 
-### Work Item Tagging
+### Work Item Tagging Best Practices
 When creating or updating work items for this project:
 - Always tag with version number (e.g., `v0.3.0`, `v0.4.0`)
 - Use descriptive tags: `enhancement`, `bulk-operations`, `mcp-tool`, `performance`
 - Include technical details in descriptions for AI agent continuity
-
-### Feature Work Items
-Epic #495 tracks all Azure DevOps MCP Server features:
-- #534 ✅ Area path support (completed for v0.3.0)
-- #535 ✅ Generic update_work_item tool (completed for v0.3.0)
-- #637 📋 Bulk work item creation (planned for v0.3.0)
-- #638 📋 Bulk work item retrieval (planned for v0.3.0)
-- #639 📋 Bulk work item updates (planned for v0.3.0)
+- Tag helps track which features are planned for which releases
 
 ## When to Use These Tools
 

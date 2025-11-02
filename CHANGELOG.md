@@ -8,11 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.3.0] - 2025-11-02
 
 ### Added
-- **Generic `update_work_item` MCP tool** (#535): Update any work item field using field reference names
+- **Generic `update_work_item` MCP tool**: Update any work item field using field reference names
   - Accepts dictionary of field updates (e.g., `{"System.AreaPath": "Project\\Area", "Microsoft.VSTS.Common.Priority": 1}`)
   - Eliminates need for REST API workarounds when updating fields beyond title/assignee/state
   - Use `get_work_item_fields` tool to discover available field reference names
-- **Area path support in work item creation** (#534): Specify area paths directly when creating work items via the `area_path` parameter
+- **Area path support in work item creation**: Specify area paths directly when creating work items via the `area_path` parameter
   - Works with `create_work_item` and all type-specific creation functions
   - Supports format like `"ProjectName\\Area\\SubArea"`
   - No longer creates work items at project root by default when area path is specified
