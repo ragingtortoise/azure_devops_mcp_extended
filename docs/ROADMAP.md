@@ -8,7 +8,7 @@ This document outlines the planned development phases for Azure DevOps Extended,
 
 ---
 
-## Phase 1: Foundation & Stability ✅ (COMPLETED)
+## Phase 1: Foundation & Stability (COMPLETED)
 
 **Status:** Released as v0.2.0
 
@@ -39,7 +39,7 @@ This document outlines the planned development phases for Azure DevOps Extended,
 
 ---
 
-## Phase 2: Enhanced Query & Search 🔄 (IN PROGRESS)
+## Phase 2: Enhanced Query & Search (IN PROGRESS)
 
 **Focus:** Improve work item discovery and batch operations
 
@@ -73,7 +73,7 @@ This document outlines the planned development phases for Azure DevOps Extended,
 
 ---
 
-## Phase 3: Rich Content & Attachments 📎
+## Phase 3: Rich Content & Attachments
 
 **Focus:** Handle work item attachments and rich content
 
@@ -98,7 +98,7 @@ This document outlines the planned development phases for Azure DevOps Extended,
 
 ---
 
-## Phase 4: Team & Sprint Management 🏃
+## Phase 4: Team & Sprint Management
 
 **Focus:** Sprint planning and team collaboration features
 
@@ -128,7 +128,7 @@ This document outlines the planned development phases for Azure DevOps Extended,
 
 ---
 
-## Phase 5: Reporting & Analytics 📊
+## Phase 5: Reporting & Analytics
 
 **Focus:** Insights and metrics for project tracking
 
@@ -153,7 +153,7 @@ This document outlines the planned development phases for Azure DevOps Extended,
 
 ---
 
-## Phase 6: Advanced Features & Integrations 🔌
+## Phase 6: Advanced Features & Integrations
 
 **Target:** 2027  
 **Focus:** Extend capabilities and integrate with other tools
@@ -190,7 +190,7 @@ This document outlines the planned development phases for Azure DevOps Extended,
 
 ---
 
-## Phase 7: Enterprise & Scale 🏢
+## Phase 7: Enterprise & Scale
 
 **Focus:** Enterprise features and scalability
 
@@ -220,7 +220,7 @@ This document outlines the planned development phases for Azure DevOps Extended,
 
 ---
 
-## Continuous Improvements 🔧
+## Continuous Improvements
 
 These items are ongoing throughout all phases:
 
@@ -253,7 +253,7 @@ These items are ongoing throughout all phases:
 
 ---
 
-## Feature Requests & Community Input 💡
+## Feature Requests & Community Input
 
 We welcome community feedback! To request a feature:
 
