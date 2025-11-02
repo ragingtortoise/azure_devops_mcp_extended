@@ -12,11 +12,11 @@ The server supports **selective tool loading** via domain filtering to optimize 
 
 **Available Domains:**
 - `creation` - 1 tool for creating work items (create_work_item)
-- `updates` - 5 tools for modifying work items (update_work_item_title, assign_work_item, add_comment, transition_state, add_parent_link)
+- `updates` - 6 tools for modifying work items (update_work_item, update_work_item_title, assign_work_item, add_comment, transition_state, add_parent_link)
 - `queries` - 2 tools for retrieving work items (get_work_item, delete_work_item)
 - `metadata` - 5 tools for discovering schema/types/states (get_work_item_types, get_available_states, get_work_item_type_schema, get_work_item_fields, get_work_item_available_states)
 - `core` - 2 essential tools (create_work_item, get_work_item)
-- `work-items` - 8 tools for all work item operations (creation + updates + queries)
+- `work-items` - 9 tools for all work item operations (creation + updates + queries)
 
 **Configuration Examples:**
 ```jsonc
@@ -37,6 +37,7 @@ See `examples/mcp-with-domain-filtering.json` for complete examples.
 
 ### Work Item Operations
 - `get_work_item` - Retrieve work item details by ID
+- `update_work_item` - Update any work item field(s) using field reference names (v0.3.0+)
 - `update_work_item_title` - Update work item titles
 - `assign_work_item` - Assign work items to users
 - `add_comment` - Add comments to work items
@@ -87,12 +88,13 @@ Repeated queries are fast and don't hit Azure DevOps API unnecessarily.
 **Good prompts (use MCP tools):**
 - "What work item types are available?"
 - "Show me available states for User Story"
-- "Create a bug for the login timeout issue with priority 1"
+- "Create a bug for the login timeout issue with priority 1 in area 'Project\\Backend'"
 - "Create a custom work item of type 'Requirement' with title 'Security review'"
 - "Get work item 123"
 - "What states can work item 456 transition to?"
 - "Mark work item 789 as Resolved"
 - "Show me all fields available for Bug work items"
+- "Update work item 534 to set area path to 'Project\\Frontend' and priority to 1" (v0.3.0+)
 
 **Avoid manual approaches:**
 - ❌ "Open the Azure DevOps web page to create a bug"
@@ -126,6 +128,28 @@ This MCP server provides advantages over other Azure DevOps integrations:
 4. **PAT Authentication** - Works in all environments including CI/CD
 5. **Developer-Friendly** - Python-based, easy to extend and customize
 
+## Version Planning & Work Item Management
+
+### Current Release: v0.3.0
+Features in development (see work items #637, #638, #639):
+- **Bulk operations** for creating, reading, and updating multiple work items
+- Performance optimization over Microsoft's official MCP plugin
+- All work items tagged with `v0.3.0` for release tracking
+
+### Work Item Tagging
+When creating or updating work items for this project:
+- Always tag with version number (e.g., `v0.3.0`, `v0.4.0`)
+- Use descriptive tags: `enhancement`, `bulk-operations`, `mcp-tool`, `performance`
+- Include technical details in descriptions for AI agent continuity
+
+### Feature Work Items
+Epic #495 tracks all Azure DevOps MCP Server features:
+- #534 ✅ Area path support (completed for v0.3.0)
+- #535 ✅ Generic update_work_item tool (completed for v0.3.0)
+- #637 📋 Bulk work item creation (planned for v0.3.0)
+- #638 📋 Bulk work item retrieval (planned for v0.3.0)
+- #639 📋 Bulk work item updates (planned for v0.3.0)
+
 ## When to Use These Tools
 
 Use Azure DevOps MCP tools for:
@@ -135,6 +159,7 @@ Use Azure DevOps MCP tools for:
 - Adding comments and updates
 - Exploring project metadata
 - Validating state transitions
+- Tracking features and releases
 
 The tools handle all API communication, authentication, and error handling automatically.
 
